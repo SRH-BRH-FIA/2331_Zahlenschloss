@@ -17,7 +17,6 @@ public class Zahlenschloss {
             if (zahl == 0) {
                 System.out.println("Schade. Viel Erfolg beim nächsten Mal");
                 meldeAnzahlVersuche(anzahlVersuche);
-                meldeAnzahlVersuche(anzahlVersuche);
                 break;
             }
 
@@ -27,16 +26,23 @@ public class Zahlenschloss {
                 meldeAnzahlVersuche(anzahlVersuche);
                 break;
             }
-            else {
-                System.out.println("Leider falsch.");
+            else if (zahl > geheimZahl+100) {
+                System.out.println("Ihr Tipp ist viel zu hoch");
+            }
+            else if (zahl > geheimZahl) {
+                System.out.println("Ihr Tipp ist zu hoch");
+            }
+            else if (zahl < geheimZahl-100) {
+                System.out.println("Ihr Tipp ist viel zu klein");
+            }
+            else { // if (zahl < geheimZahl)
+                System.out.println("Ihr Tipp ist zu klein");
             }
         }
     }
 
     private static void meldeAnzahlVersuche(int anzahlVersuche) {
         System.out.println("Sie haben " + anzahlVersuche + " Versuche gebraucht");
-        anzahlVersuche += 10; // Faulenzer für: anzahlVersuche = anzahlVersuche + 10
-        System.out.println("Das ist der neue Wert von anzahlVersuche: " + anzahlVersuche);
     }
 
 
