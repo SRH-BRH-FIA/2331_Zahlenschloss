@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Zahlenschloss {
 
-
     public static void main(String[] args) {
 
         int geheimZahl = findeZufälligeZahl();
@@ -10,6 +9,8 @@ public class Zahlenschloss {
 
         Scanner eingabe = new Scanner(System.in);
 
+        // Achtung, Spoiler, im fertigen Programm wieder entfernen!!
+        System.out.println("GEHEIME ZAHL = " + geheimZahl);
         while (true) {
             System.out.print("Bitte Tipp für Geheimzahl eingeben (0 für Abbruch): ");
             int zahl = eingabe.nextInt();
@@ -27,19 +28,27 @@ public class Zahlenschloss {
                 meldeAnzahlVersuche(anzahlVersuche);
                 break;
             }
-            else if (zahl > geheimZahl+100) {
-                System.out.println("Ihr Tipp ist viel zu hoch");
-            }
-            else if (zahl > geheimZahl) {
-                System.out.println("Ihr Tipp ist zu hoch");
-            }
-            else if (zahl < geheimZahl-100) {
-                System.out.println("Ihr Tipp ist viel zu klein");
-            }
-            else { // if (zahl < geheimZahl)
-                System.out.println("Ihr Tipp ist zu klein");
+            else {
+                zeigeZiffernTips(geheimZahl, zahl);
             }
         }
+    }
+
+    private static void zeigeZiffernTips(int geheimZahl, int tipp) {
+        int anzahlKorrekterZiffern = 0;
+        int anzahlVorhandenerZiffern = 0;
+        int kopieDerGeheimenZahl = geheimZahl;
+        while (tipp > 0) {
+            int zifferDerGeheimenZahl = geheimZahl % 10;
+            int zifferVomTipp         = tipp % 10;
+            if (zifferDerGeheimenZahl == zifferVomTipp)
+                anzahlKorrekterZiffern++;
+            else if ( zifferInGeheimerZahlVorhanden(zifferVomTipp, kopieDerGeheimenZahl) )
+                anzahlVorhandenerZiffern++;
+            geheimZahl /= 10;
+            tipp /= 10;
+        }
+        System.out.println(anzahlKorrekterZiffern + " korrekte Ziffer(n)");
     }
 
     private static int findeZufälligeZahl() {
