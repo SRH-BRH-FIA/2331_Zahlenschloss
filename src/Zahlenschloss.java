@@ -5,7 +5,7 @@ public class Zahlenschloss {
 
     public static void main(String[] args) {
 
-        int geheimZahl = 374;
+        int geheimZahl = findeZufälligeZahl();
         int anzahlVersuche = 0;
 
         Scanner eingabe = new Scanner(System.in);
@@ -15,7 +15,8 @@ public class Zahlenschloss {
             int zahl = eingabe.nextInt();
 
             if (zahl == 0) {
-                System.out.println("Schade. Viel Erfolg beim nächsten Mal");
+                System.out.println("Schade. Die gesuchte Zahl war " + geheimZahl +
+                        ". Viel Erfolg beim nächsten Mal");
                 meldeAnzahlVersuche(anzahlVersuche);
                 break;
             }
@@ -39,6 +40,10 @@ public class Zahlenschloss {
                 System.out.println("Ihr Tipp ist zu klein");
             }
         }
+    }
+
+    private static int findeZufälligeZahl() {
+        return (int)(Math.random() * 900 + 100);
     }
 
     private static void meldeAnzahlVersuche(int anzahlVersuche) {
