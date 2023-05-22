@@ -4,13 +4,20 @@ public class Zahlenschloss {
 
     public static void main(String[] args) {
 
+        /*
+         Testfälle für die Methode zum Überprüfen der geheimen Zahl
+
+        System.out.println("Ausnahmeszenario - Testen einer Methode");
+        System.out.println( geheimeZahlIstInOrdnung(123) );
+        System.out.println( geheimeZahlIstInOrdnung(465) );
+        System.out.println( geheimeZahlIstInOrdnung(663) );
+        System.out.println( geheimeZahlIstInOrdnung(120) );
+        */
+
         int geheimZahl = findeZufälligeZahl();
         int anzahlVersuche = 0;
 
         Scanner eingabe = new Scanner(System.in);
-
-        // Achtung, Spoiler, im fertigen Programm wieder entfernen!!
-        System.out.println("GEHEIME ZAHL = " + geheimZahl);
         while (true) {
             System.out.print("Bitte Tipp für Geheimzahl eingeben (0 für Abbruch): ");
             int zahl = eingabe.nextInt();
@@ -49,10 +56,36 @@ public class Zahlenschloss {
             tipp /= 10;
         }
         System.out.println(anzahlKorrekterZiffern + " korrekte Ziffer(n)");
+        System.out.println(anzahlVorhandenerZiffern + " vorhandene Ziffer(n)");
+    }
+
+    private static boolean zifferInGeheimerZahlVorhanden(int ziffer, int geheimeZahl) {
+        while (geheimeZahl > 0) {
+            int zifferDerGeheimenZahl = geheimeZahl % 10;
+            if (ziffer == zifferDerGeheimenZahl) {
+                return true;
+            }
+            geheimeZahl /= 10;
+        }
+        return false;
     }
 
     private static int findeZufälligeZahl() {
-        return (int)(Math.random() * 900 + 100);
+        int geheimeZahl;
+        do {
+            geheimeZahl = (int) (Math.random() * 900 + 100);
+        } while ( ! geheimeZahlIstInOrdnung(geheimeZahl) );
+        return geheimeZahl;
+    }
+
+    private static boolean geheimeZahlIstInOrdnung(int geheimeZahl) {
+        int anzahlUnterschiedlicherZiffern = 0;
+        for (int ziffer=0; ziffer<=9; ziffer++) {
+            if ( zifferInGeheimerZahlVorhanden(ziffer, geheimeZahl) ) {
+                anzahlUnterschiedlicherZiffern++;
+            }
+        }
+        return (anzahlUnterschiedlicherZiffern == 3);
     }
 
     private static void meldeAnzahlVersuche(int anzahlVersuche) {
