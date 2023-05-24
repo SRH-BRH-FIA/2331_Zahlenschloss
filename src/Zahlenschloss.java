@@ -36,6 +36,8 @@ public class Zahlenschloss {
 
         int anzahlVersuche = 0;
         int geheimZahl = findeZufälligeZahl(anzahlZiffern);
+        System.out.println("Ihr gewählter Schwierigkeitsgrad verlangt "
+                + anzahlZiffern + " Ziffern");
 
         while (true) {
             System.out.print("Bitte Tipp für Geheimzahl eingeben (0 für Abbruch): ");
@@ -60,18 +62,18 @@ public class Zahlenschloss {
         }
     }
 
-    private static void zeigeZiffernTips(int geheimZahl, int tipp) {
+    private static void zeigeZiffernTips(int geheimeZahl, int tipp) {
         int anzahlKorrekterZiffern = 0;
         int anzahlVorhandenerZiffern = 0;
-        int kopieDerGeheimenZahl = geheimZahl;
+        int kopieDerGeheimenZahl = geheimeZahl;
         while (tipp > 0) {
-            int zifferDerGeheimenZahl = geheimZahl % 10;
+            int zifferDerGeheimenZahl = geheimeZahl % 10;
             int zifferVomTipp         = tipp % 10;
             if (zifferDerGeheimenZahl == zifferVomTipp)
                 anzahlKorrekterZiffern++;
             else if ( zifferInGeheimerZahlVorhanden(zifferVomTipp, kopieDerGeheimenZahl) )
                 anzahlVorhandenerZiffern++;
-            geheimZahl /= 10;
+            geheimeZahl /= 10;
             tipp /= 10;
         }
         System.out.println(anzahlKorrekterZiffern + " korrekte Ziffer(n)");
